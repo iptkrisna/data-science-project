@@ -39,8 +39,8 @@ def combine():
     ihsg_path = os.path.abspath(os.getcwd()) + '/data/ihsg.csv'
     combine_path = os.path.abspath(os.getcwd()) + '/data/combine.csv'
     with open(covid_path, 'r') as fp, open(ihsg_path, 'r') as fq, open(combine_path, 'w') as fr:
-        covid = reader(fp)
-        ihsg = reader(fq)
+        covid = csv.reader(fp)
+        ihsg = csv.reader(fq)
         ihsg_iterator = iter(ihsg)
         counter = 0
         ihsg_i = next(ihsg_iterator)
