@@ -2,8 +2,8 @@ import os
 import requests
 import json
 import csv
-# from google.cloud import storage
-# from google.cloud.storage import Blob
+from google.cloud import storage
+from google.cloud.storage import Blob
 
 def download():
     url = 'https://data.covid19.go.id/public/api/update.json?_=1592281989293'
