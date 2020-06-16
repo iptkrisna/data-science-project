@@ -22,5 +22,5 @@ create table covid_ihsg (
   LOW float,
   CLOSE float,
   VOLUME int,
-  INDEX (TANGGAL), INDEX (KEY)
+  PRIMARY KEY (KEY)
 );
