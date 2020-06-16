@@ -2,8 +2,8 @@ import os
 import requests
 import json
 import csv
-from google.cloud import storage
-from google.cloud.storage import Blob
+# from google.cloud import storage
+# from google.cloud.storage import Blob
 
 def download():
     url = 'https://data.covid19.go.id/public/api/update.json?_=1592281989293'
@@ -30,7 +30,7 @@ def download():
             jumlah_dirawat_kum = str(next(line_iterator)['value'])
             item = tanggal + ',' + key + ',' + jumlah_item + ',' + jumlah_meninggal + ',' + jumlah_sembuh + ',' + jumlah_positif + ',' + jumlah_dirawat + ',' + jumlah_positif_kum + ',' + jumlah_sembuh_kum + ',' + jumlah_meninggal_kum + ',' + jumlah_dirawat_kum + '\n'
             fp.write(item)
-        gcsfile = upload(fp)
+        gcsfile = upload(fp, covid_path)
         logging.info('Success download... ingested to {}'.format(gcsfile))
         combine()
 
@@ -60,12 +60,12 @@ def combine():
                     counter = 0
             except StopIteration:
                 break
-        gcsfile = upload(fr)
+        gcsfile = upload(fr, combine_path)
         logging.info('Success combine... ingested to {}'.format(gcsfile))
 
-def upload(csvfile):
+def upload(csvfile, path):
     bucketname = 'dsp-covid-ihsg'
-    blobname = 'covid_ihsg/raw/{}'.format(os.path.basename(csvfile))
+    blobname = 'covid_ihsg/raw/{}'.format(os.path.basename(path))
     client = storage.Client()
     bucket = client.get_bucket(bucketname)
     blob = Blob(blobname, bucket)
