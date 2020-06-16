@@ -30,8 +30,8 @@ def download():
             jumlah_dirawat_kum = str(next(line_iterator)['value'])
             item = tanggal + ',' + key + ',' + jumlah_item + ',' + jumlah_meninggal + ',' + jumlah_sembuh + ',' + jumlah_positif + ',' + jumlah_dirawat + ',' + jumlah_positif_kum + ',' + jumlah_sembuh_kum + ',' + jumlah_meninggal_kum + ',' + jumlah_dirawat_kum + '\n'
             fp.write(item)
-        gcsfile = upload(fp, covid_path)
-        logging.info('Success download... ingested to {}'.format(gcsfile))
+        # gcsfile = upload(fp, covid_path)
+        # logging.info('Success download... ingested to {}'.format(gcsfile))
         combine()
 
 def combine():
@@ -60,19 +60,19 @@ def combine():
                     counter = 0
             except StopIteration:
                 break
-        gcsfile = upload(fr, combine_path)
-        logging.info('Success combine... ingested to {}'.format(gcsfile))
+        # gcsfile = upload(fr, combine_path)
+        # logging.info('Success combine... ingested to {}'.format(gcsfile))
 
-def upload(csvfile, path):
-    bucketname = 'dsp-covid-ihsg'
-    blobname = 'covid_ihsg/raw/{}'.format(os.path.basename(path))
-    client = storage.Client()
-    bucket = client.get_bucket(bucketname)
-    blob = Blob(blobname, bucket)
-    blob.upload_from_filename(csvfile)
-    gcslocation = 'gs://{}/{}'.format(bucketname, blobname)
-    logging.info('Uploaded {} ...'.format(gcslocation))
-    return gcslocation
+# def upload(csvfile, path):
+#     bucketname = 'dsp-covid-ihsg'
+#     blobname = 'covid_ihsg/raw/{}'.format(os.path.basename(path))
+#     client = storage.Client()
+#     bucket = client.get_bucket(bucketname)
+#     blob = Blob(blobname, bucket)
+#     blob.upload_from_filename(csvfile)
+#     gcslocation = 'gs://{}/{}'.format(bucketname, blobname)
+#     logging.info('Uploaded {} ...'.format(gcslocation))
+#     return gcslocation
 
 if __name__ == '__main__':
     download()
