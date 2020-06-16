@@ -2,7 +2,7 @@ import pandas as pd
 import os
 
 def convert():
-    for root, dirs, files in os.walk('../data'):
+    for root, dirs, files in os.walk('../data/index'):
         for file in files:
             if file.endswith('.TXT'):
                 print(file)
